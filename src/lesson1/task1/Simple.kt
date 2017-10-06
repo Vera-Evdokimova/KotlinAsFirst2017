@@ -61,7 +61,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = (3600 * hours + 60 * 
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (sagenes * 3 * 48 + arshins * 48 + vershoks) * 4.445 / 100
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
 
 
 /**
@@ -98,7 +98,7 @@ fun thirdDigit(number: Int): Int = number / 100 % 10
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    return (hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart)
+    return ((hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart))
 }
 
 /**
