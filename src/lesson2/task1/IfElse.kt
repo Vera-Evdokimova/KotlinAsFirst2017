@@ -98,7 +98,12 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+                          bishopX: Int, bishopY: Int): Int {
+    if ((kingX == rookX || kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) return 3
+    if (abs(kingX - bishopX) == abs(kingY - bishopY)) return 2
+    if (kingX == rookX || kingY == rookY) return 1
+    else return 0
+}
 
 
 /**
