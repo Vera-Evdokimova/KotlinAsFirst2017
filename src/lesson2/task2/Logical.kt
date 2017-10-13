@@ -2,8 +2,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
-import java.lang.Math.abs
-import java.lang.Math.sqrt
+import java.lang.Math.*
 
 /**
  * Пример
@@ -29,7 +28,8 @@ fun isNumberHappy(number: Int): Boolean = number / 1000 + ((number / 100) % 10) 
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = ((x1 == x2 || y1 == y2) || (abs(x1 - x2) == abs(y1 - y2)))
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+        ((x1 == x2 || y1 == y2) || (abs(x1 - x2) == abs(y1 - y2)))
 
 /**
  * Средняя
@@ -51,5 +51,4 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-        ((r >= a && s >= b) || (r >= b && s >= c) || (r >= a && s >= c) ||
-                (s >= a && r >= b) || (s >= b && r >= c) || (s >= a && r >= c))
+        min(min(a, b), c) <= min(r, s) && (a + b + c - min(min(a, b), c) - max(max(a, b), c)) <= max(r, s)
