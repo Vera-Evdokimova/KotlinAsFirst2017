@@ -130,13 +130,13 @@ fun maxDivisor(n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
     var b = Math.max(m, n)
     for (w in 2..(b - 1)) {
-        if ((m % w == 0) || (n % w == 0))
+        if ((m % w == 0) && (n % w == 0))
             return false
     }
     return true
 }
 
-fun max(m: Int, n: Int, any: Any): Any = 0
+fun max(m: Int, n: Int, any: Any): Any = TODO()
 
 /**
  * Простая
