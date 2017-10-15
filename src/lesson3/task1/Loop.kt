@@ -69,7 +69,7 @@ fun digitNumber(n: Int): Int {
         c++
         namber /= 10
 
-    } while (namber > 0)
+    } while (namber != 0)
     return c
 }
 
@@ -99,7 +99,7 @@ fun lcm(m: Int, n: Int): Int = 0
  */
 fun minDivisor(n: Int): Int {
     var a = 0
-    for (m in 2..n) {
+    for (m in 2..n * 2) {
         a = m
         if (n % m == 0) break
     }
@@ -129,7 +129,7 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var b = Math.max(m, n)
-    for (w in 2..(b - 1)) {
+    for (w in 2..b) {
         if ((m % w == 0) && (n % w == 0))
             return false
     }
