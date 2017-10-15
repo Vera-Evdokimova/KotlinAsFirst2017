@@ -90,7 +90,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = 0
+fun lcm(m: Int, n: Int): Int = TODO()
 
 /**
  * Простая
@@ -99,7 +99,7 @@ fun lcm(m: Int, n: Int): Int = 0
  */
 fun minDivisor(n: Int): Int {
     var a = 0
-    for (m in 2..n * 2) {
+    for (m in 2..n) {
         a = m
         if (n % m == 0) break
     }
