@@ -156,9 +156,9 @@ fun isCoPrime(m: Int, n: Int): Boolean {
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     val a = (sqrt(m.toDouble()))
     val b = (sqrt(n.toDouble()))
-    var x = min(a, b)
-    var y = max(a, b)
-    if (ceil(x) == floor(y)) {
+    val x = min(a, b)
+    val y = max(a, b)
+    if (ceil(x) <= floor(y)) {
         return true
     }
     return false
