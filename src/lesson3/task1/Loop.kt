@@ -63,13 +63,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
 fun digitNumber(n: Int): Int {
-    var namber = n
+    var number = n
     var c = 0
     do {
         c++
-        namber /= 10
+        number /= 10
 
-    } while (namber != 0)
+    } while (number != 0)
     return c
 }
 
@@ -90,7 +90,17 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var a = min(m, n)
+    var c = 0
+    if (m == n) return m
+    for (k in a..m * n) {
+        c = k
+        if ((k % m == 0) && (k % n == 0))
+            break
+    }
+    return c
+}
 
 /**
  * Простая
@@ -113,7 +123,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var a = 0
-    for (m in (n - 1) downTo 1) {
+    for (m in n / 2 downTo 1) {
         a = m
         if (n % m == 0) break
     }
@@ -136,8 +146,6 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     return true
 }
 
-fun max(m: Int, n: Int, any: Any): Any = TODO()
-
 /**
  * Простая
  *
@@ -145,7 +153,17 @@ fun max(m: Int, n: Int, any: Any): Any = TODO()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    val a = (sqrt(m.toDouble()))
+    val b = (sqrt(n.toDouble()))
+    var x = min(a, b)
+    var y = max(a, b)
+    if (ceil(x) == floor(y)) {
+        return true
+    }
+    return false
+
+}
 
 /**
  * Средняя
@@ -171,7 +189,23 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var k = -1
+    var m = n
+    var e = 0
+    var y = 0
+    var x = n
+    while (m > 0) {
+        m = m / 10
+        k = k + 1
+    }
+    for (i in k downTo 0) {
+        e = (x % 10)
+        x = x / 10
+        y = y + e * pow(10.0, i.toDouble()).toInt()
+    }
+    return y
+}
 
 /**
  * Средняя
@@ -180,7 +214,14 @@ fun revert(n: Int): Int = TODO()
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    val x = n.toString()
+    val m = x.length
+    for (i in 0..m / 2) {
+        if (x[i] != x[m - i - 1]) return false
+    }
+    return true
+}
 
 /**
  * Средняя
@@ -188,7 +229,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val l = n.toString()
+    val k = l.length
+    if (k == 1) return false
+    for (i in 0..k - 2) {
+        if (l[i] != l[i + 1]) return true
+    }
+    return false
+
+}
 
 /**
  * Сложная
@@ -197,7 +247,17 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var l = 1.toString()
+    var k = 2
+    var m = 0
+    while (l.length < n) {
+        m = (k * k)
+        k += 1
+        l += m.toString()
+    }
+    return (l[n - 1]).toString().toInt()
+}
 
 /**
  * Сложная
@@ -206,4 +266,16 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * 1123581321345589144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var l = 1.toString()
+    var z = 0
+    var y = 1
+    var x = 0
+    while (l.length < n) {
+        x = z + y
+        z = y
+        y = x
+        l += x.toString()
+    }
+    return (l[n - 1]).toString().toInt()
+}
