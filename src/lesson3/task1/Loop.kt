@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import lesson4.task1.abs
 import java.lang.Math.*
 
 /**
@@ -80,10 +81,22 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
+
+
+    var z = -1
+    var y = 0
+    var x = 0
     if (n == 0) return 0;
     if (n == 1 || n == 2) return 1;
-    return fib(n - 1) + fib(n - 2);
+    for (q in 1..n) {
+        x = abs(z + y)
+        z = y
+        y = x
+    }
+    return x
 }
+
+
 /**
  * Простая
  *
@@ -91,15 +104,15 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a = min(m, n)
+    var a = max(m, n)
+    var b = min(m, n)
     var c = 0
-    if (m == n) return m
-    for (k in a..m * n) {
-        c = k
-        if ((k % m == 0) && (k % n == 0))
-            break
+    while (a != b) {
+        c = a - b
+        a = max(b, c)
+        b = min(b, c)
     }
-    return c
+    return m * n / a
 }
 
 /**
@@ -138,12 +151,16 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var b = Math.max(m, n)
-    for (w in 2..b) {
-        if ((m % w == 0) && (n % w == 0))
-            return false
+    var a = max(m, n)
+    var b = min(m, n)
+    var c = 0
+    while (a != b) {
+        c = a - b
+        a = max(b, c)
+        b = min(b, c)
     }
-    return true
+    if (a == 1) return true
+    else return false
 }
 
 /**
@@ -154,14 +171,12 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    val a = (sqrt(m.toDouble()))
+    var a = (sqrt(m.toDouble()))
     val b = (sqrt(n.toDouble()))
     val x = min(a, b)
     val y = max(a, b)
-    if (ceil(x) <= floor(y)) {
-        return true
-    }
-    return false
+    return (ceil(x) <= floor(y))
+
 
 }
 
@@ -190,21 +205,14 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Не использовать строки при решении задачи.
  */
 fun revert(n: Int): Int {
-    var k = -1
+    var x = 0
     var m = n
-    var e = 0
-    var y = 0
-    var x = n
     while (m > 0) {
-        m = m / 10
-        k = k + 1
+        x *= 10
+        x += m % 10
+        m /= 10
     }
-    for (i in k downTo 0) {
-        e = (x % 10)
-        x = x / 10
-        y = y + e * pow(10.0, i.toDouble()).toInt()
-    }
-    return y
+    return x
 }
 
 /**
@@ -248,15 +256,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var l = 1.toString()
+    var l = 1
     var k = 2
-    var m = 0
-    while (l.length < n) {
-        m = (k * k)
+    var m = 0.toString()
+    var x = 0
+    if (n == 1) return 1
+    while (l < n) {
+        m = (k * k).toString()
         k += 1
-        l += m.toString()
+        l += m.length
     }
-    return (l[n - 1]).toString().toInt()
+    return (m[m.length - (l - n) - 1]).toString().toInt()
+
 }
 
 /**
@@ -267,15 +278,14 @@ fun squareSequenceDigit(n: Int): Int {
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var l = 1.toString()
-    var z = 0
-    var y = 1
-    var x = 0
-    while (l.length < n) {
-        x = z + y
-        z = y
-        y = x
-        l += x.toString()
+    var l = 1
+    var y = 0
+    var x = 0.toString()
+    if (n == 0 || n == 1) return 1;
+    while (l < n) {
+        x = fib(y).toString()
+        y++
+        l += x.length
     }
-    return (l[n - 1]).toString().toInt()
+    return (x[x.length - (l - n) - 1]).toString().toInt()
 }
