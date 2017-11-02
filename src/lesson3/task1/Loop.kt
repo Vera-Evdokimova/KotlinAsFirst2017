@@ -279,13 +279,13 @@ fun squareSequenceDigit(n: Int): Int {
  */
 fun fibSequenceDigit(n: Int): Int {
     var l = 1
-    var y = 0
+    var y = 1
     var x = 0.toString()
-    if (n == 0 || n == 1) return 1;
-    while (l < n) {
+    if (n == 1 || n == 2) return 1;
+    while (l <= n) {
         x = fib(y).toString()
         y++
         l += x.length
     }
-    return (x[x.length - (l - n) - 1]).toString().toInt()
+    return (x[x.length - (l - n)]).toString().toInt()
 }

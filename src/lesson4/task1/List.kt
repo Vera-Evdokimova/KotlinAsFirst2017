@@ -187,14 +187,14 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    if (list.size == 1) return list
-    val j = list.first()
-    val v = mutableListOf<Double>(j)
+
+    if (list.size == 1 || list.size == 0) return list
+    var j = list.first()
     for (i in 1 until list.size) {
-        list[i] += list[i - 1]
-        v.add(list[i])
+        j += list[i]
+        list[i] = j
     }
-    return v
+    return list
 
 }
 
