@@ -4,6 +4,7 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import java.lang.Math.pow
 import java.lang.Math.sqrt
+import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
  * Пример
@@ -205,7 +206,23 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var v = listOf<Int>()
+    var m = n
+    var i = 3
+    while (m % 2 == 0) {
+        v += 2
+        m /= 2
+    }
+    while (i <= m) {
+        if (m % i == 0) {
+            v += i
+            m /= i
+        } else i += 2
+    }
+    if (v.isEmpty()) return listOf(n)
+    else return v
+}
 
 /**
  * Сложная
@@ -213,7 +230,23 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var v = listOf<Int>()
+    var m = n
+    var i = 3
+    while (m % 2 == 0) {
+        v += 2
+        m /= 2
+    }
+    while (i <= m) {
+        if (m % i == 0) {
+            v += i
+            m /= i
+        } else i += 2
+    }
+    if (v.isEmpty()) return n.toString()
+    else return v.joinToString(separator = "*")
+}
 
 /**
  * Средняя
@@ -222,7 +255,21 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var m = listOf<Int>()
+    var k = listOf<Int>()
+    var i = n
+    var z = Int
+    if (n == 1) return listOf(n)
+    while (i >= 1) {
+        m += (i % base)
+        i /= base
+    }
+    for (z in m.size - 1 downTo 0) {
+        k += m[z]
+    }
+    return k
+}
 
 /**
  * Сложная
@@ -232,7 +279,25 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    var m = String
+    var k = String
+    var i = n
+    var z = Int
+    var b = 0
+    var v = 'a'.toInt()
+    if (n == 1) return n.toString()
+    while (i >= 1) {
+        b = i % base
+        if (b >= 10) {
+            v += (i % base)
+            m += v.toString()
+            i /= base
+        }
+
+    }
+    return k
+}
 
 /**
  * Средняя
