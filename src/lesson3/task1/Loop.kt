@@ -96,14 +96,7 @@ fun fib(n: Int): Int {
     return x
 }
 
-
-/**
- * Простая
- *
- * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
- * минимальное число k, которое делится и на m и на n без остатка
- */
-fun lcm(m: Int, n: Int): Int {
+fun gcd(m: Int, n: Int): Int {
     var a = max(m, n)
     var b = min(m, n)
     var c = 0
@@ -112,8 +105,15 @@ fun lcm(m: Int, n: Int): Int {
         a = max(b, c)
         b = min(b, c)
     }
-    return m * n / a
+    return a
 }
+/**
+ * Простая
+ *
+ * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
+ * минимальное число k, которое делится и на m и на n без остатка
+ */
+fun lcm(m: Int, n: Int): Int = m / gcd(m, n) * n
 
 /**
  * Простая
@@ -122,11 +122,14 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var a = 0
-    for (m in 2..n) {
-        a = m
-        if (n % m == 0) break
+    for (m in 2..n / 2) {
+        if (n % m == 0) {
+            a = m
+            break
+        }
     }
-    return a
+    if (a != 0) return a
+    else return n
 }
 
 /**
@@ -150,18 +153,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var a = max(m, n)
-    var b = min(m, n)
-    var c = 0
-    while (a != b) {
-        c = a - b
-        a = max(b, c)
-        b = min(b, c)
-    }
-    if (a == 1) return true
-    else return false
-}
+fun isCoPrime(m: Int, n: Int): Boolean = (gcd(m, n) == 1)
 
 /**
  * Простая
@@ -170,15 +162,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var a = (sqrt(m.toDouble()))
-    val b = (sqrt(n.toDouble()))
-    val x = min(a, b)
-    val y = max(a, b)
-    return (ceil(x) <= floor(y))
-
-
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean = (ceil(sqrt(m.toDouble())) <= floor(sqrt(n.toDouble())))
 
 /**
  * Средняя
