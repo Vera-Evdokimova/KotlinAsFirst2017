@@ -255,6 +255,7 @@ fun convert(n: Int, base: Int): List<Int> {
     var k = listOf<Int>()
     var i = n
     var z = Int
+    if (n == 0) return listOf<Int>()
     if (n == 1) return listOf(n)
     while (i >= 1) {
         m += (i % base)
