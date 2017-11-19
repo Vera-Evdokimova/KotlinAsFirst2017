@@ -146,6 +146,7 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     val r = mutableListOf<Int>()
+    if (phone == "") return ""
     for (n in phone.filter { it !in " +-()" }) {
         try {
             r.add(n.toString().toInt())
