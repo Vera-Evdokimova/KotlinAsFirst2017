@@ -81,15 +81,13 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-
-
-    var z = -1
-    var y = 0
+    var z = 1
+    var y = 1
     var x = 0
-    if (n == 0) return 0;
-    if (n == 1 || n == 2) return 1;
-    for (q in 1..n) {
-        x = abs(z + y)
+    if (n == 0) return 0
+    if (n == 1 || n == 2) return 1
+    for (q in 3..n) {
+        x = z + y
         z = y
         y = x
     }
@@ -122,7 +120,7 @@ fun lcm(m: Int, n: Int): Int = m / gcd(m, n) * n
  */
 fun minDivisor(n: Int): Int {
     var a = 0
-    for (m in 2..n / 2) {
+    for (m in 2..Math.sqrt(n.toDouble()).toInt()) {
         if (n % m == 0) {
             a = m
             break
@@ -138,12 +136,10 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var a = 0
-    for (m in n / 2 downTo 1) {
-        a = m
-        if (n % m == 0) break
+    for (m in n - 1 downTo Math.sqrt(n.toDouble()).toInt()) {
+        if (n % m == 0) return m
     }
-    return a
+    return 1
 }
 
 /**
@@ -243,7 +239,6 @@ fun squareSequenceDigit(n: Int): Int {
     var l = 1
     var k = 2
     var m = 0.toString()
-    var x = 0
     if (n == 1) return 1
     while (l < n) {
         m = (k * k).toString()
@@ -265,7 +260,7 @@ fun fibSequenceDigit(n: Int): Int {
     var l = 1
     var y = 1
     var x = 0.toString()
-    if (n == 1 || n == 2) return 1;
+    if (n == 1 || n == 2) return 1
     while (l <= n) {
         x = fib(y).toString()
         y++

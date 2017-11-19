@@ -225,23 +225,7 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String {
-    var v = listOf<Int>()
-    var m = n
-    var i = 3
-    while (m % 2 == 0) {
-        v += 2
-        m /= 2
-    }
-    while (i <= m) {
-        if (m % i == 0) {
-            v += i
-            m /= i
-        } else i += 2
-    }
-    if (v.isEmpty()) return n.toString()
-    else return v.joinToString(separator = "*")
-}
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -254,9 +238,7 @@ fun convert(n: Int, base: Int): List<Int> {
     var m = listOf<Int>()
     var k = listOf<Int>()
     var i = n
-    var z = Int
     if (n == 0) return listOf(0)
-    if (n == 1) return listOf(n)
     while (i >= 1) {
         m += (i % base)
         i /= base
@@ -276,27 +258,12 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    var m = 0.toString()
-    var k = listOf<Char>()
-    var i = n
-    var z: Int
-    var b = 0
-    var v = 'a'.toInt()
-    if (n == 1) return n.toString()
-    while (i >= 1) {
-        b = i % base
-        if (b >= 10) {
-            v += (i % base)
-            m += v.toChar()
-            v = 'a'.toInt()
-            i /= base
-        } else {
-            m += b
-            i /= base
-        }
-    }
-    for (z in m.length downTo 1) {
-        k += m[z]
+    val f = convert(n, base)
+    val k = mutableListOf<String>()
+    for (m in f) {
+        if (m < 10) k.add(m.toString())
+        else
+            k.add(('a' + m - 10).toChar().toString())
     }
     return k.joinToString(separator = "")
 }
@@ -310,10 +277,6 @@ fun convertToString(n: Int, base: Int): String {
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var r = 0
-    var z = 0
-    if (digits.size == 1) {
-        return digits.first()
-    }
     for (z in 0 until digits.size) {
         r += digits[z] * pow(base.toDouble(), (digits.size - 1 - z).toDouble()).toInt()
     }
@@ -330,14 +293,12 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var r = 0
-    var z = 0
-    for (z in 0 until str.length) {
-        if (str[z].toInt() in 48..57) {
-            r += (str[z].toInt() - 48) * pow(base.toDouble(), (str.length - 1 - z).toDouble()).toInt()
-        } else r += ((str[z].toInt() - 'a'.toInt()) + 10) * pow(base.toDouble(), (str.length - 1 - z).toDouble()).toInt()
+    val r = mutableListOf<Int>()
+    for (t in str) {
+        if (t in 'a'..'z') r.add(t - 'a' + 10)
+        else r.add(t - '0')
     }
-    return r
+    return decimal(r.toList(), base)
 }
 
 /**
