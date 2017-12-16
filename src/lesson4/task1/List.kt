@@ -356,6 +356,7 @@ fun russian(n: Int): String {
         }
         if (j == 1) {
             when {
+                (e % 100 in 11..19) -> result.add("тысяч")
                 (e % 100 % 10 in 2..4) -> result.add("тысячи")
                 (e % 100 % 10 == 1) -> result.add("тысяча")
                 else -> result.add("тысяч")
