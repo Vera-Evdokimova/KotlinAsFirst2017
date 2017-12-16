@@ -318,4 +318,50 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    if (n == 0) return "ноль"
+    val a1 = listOf<List<String>>(listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь",
+            "восемь", "девять"),
+            listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"))
+    val b11 = listOf<String>("", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+            "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать", "двадцать")
+    val c10 = listOf<String>("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+            "восемьдесят", "девяносто")
+    val d100 = listOf<String>("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот",
+            "семьсот", "восемьсот", "девятьсот")
+    val z = mutableListOf<Int>()
+    var number = n
+    while (number > 999) {
+        val s = number / 1000
+        z.add(number - s * 1000)
+        number = s
+    }
+    z.add(number)
+    z.reverse()
+    val result = mutableListOf<String>()
+    var j = z.count() - 1
+    for (e in z) {
+        val l = j
+        val e1 = e / 100
+        val e22 = e % 100
+        val e2 = e22 / 10
+        val e3 = e % 10
+        if (e > 99) result.add(d100[e1])
+        if (e22 > 20) {
+            result.add(c10[e2])
+            result.add(a1[l][e3])
+        } else {
+            if (e22 > 9) result.add(b11[e22 - 9])
+            else if (e22 in 1..9) result.add(a1[l][e3])
+        }
+        if (j == 1) {
+            when {
+                (e % 100 % 10 in 2..4) -> result.add("тысячи")
+                (e % 100 % 10 == 1) -> result.add("тысяча")
+                else -> result.add("тысяч")
+            }
+        }
+        j--
+    }
+    return result.filter { it != "" }.joinToString(separator = " ")
+}
