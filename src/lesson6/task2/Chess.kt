@@ -135,7 +135,23 @@ fun bishopMoveNumber(start: Square, end: Square): Int = when {
  *          bishopTrajectory(Square(1, 3), Square(6, 8)) = listOf(Square(1, 3), Square(6, 8))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun bishopTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun bishopTrajectory(start: Square, end: Square): List<Square> {
+    if (bishopMoveNumber(start, end) == -1) return listOf()
+    if (bishopMoveNumber(start, end) == 0) return listOf<Square>(start)
+    val result = mutableListOf<Square>(start)
+    if (bishopMoveNumber(start, end) == 1) result.add(end)
+    else {
+        var y = (start.row - start.column + end.column + end.row) / 2
+        var x = y - start.row - start.column
+        if (!Square(x, y).inside()) {
+            y = (start.row + start.column + end.row - end.column) / 2
+            x = y - end.row - end.column
+        }
+        result.add(Square(x, y))
+        result.add(end)
+    }
+    return result
+}
 
 /**
  * Средняя
